@@ -1,0 +1,28 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: create an ansible user
+      ansible.builtin.user:
+        name: ansible
+        group: root
+        state: present
+    - name: add ssh key for ansible user
+      ansible.posix.authorized_key:
+        user: ansible
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHI+bvKKY7nY7r4/eVWTHpJ5vlIV1j7Kml3xmRgoa49C ansible"
+        state: present
+    - name: Add sudoers file for ansible
+      ansible.builtin.copy:
+        src: sudoers_ansible
+        dest: /etc/sudoers.d/sudoers_ansible
+        owner: root
+        group: root
+        mode: '0440'
+    # - name: Delete content & directory
+    #   ansible.builtin.file:
+    #     state: absent
+    #     path: /home/mydata/web/
+
+
+

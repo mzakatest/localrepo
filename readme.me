@@ -1,1 +1,8 @@
-Mina
+#generate key
+ssh-keygen -t ed25519 -C "ansible"
+#modify ansible.cfg file
+#modify the hosts inventory file
+#modify the bootstrap script
+#run the bootstap script
+ansible-playbook -u root --ask-pass -K bootstrap.yml
+#now you have prepared ansible
